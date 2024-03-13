@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IABI TRADER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./sty.css">
+  <style>
+    .selected {
+      outline: 3px solid blue; /* Adicione aqui o estilo que deseja para indicar que a imagem está selecionada */
+      outline-offset: -2px; /* Para compensar a largura da borda e manter o tamanho da imagem */
+    }
+
+    .card-container {
+      display: flex;
+      flex-direction: column; /* Para alinhar as imagens uma abaixo da outra */
+      margin-top: 320px; /* Adicionar margem superior para mover as imagens para baixo */
+    }
+
+
+    .switch-container {
+  margin-top: 320px; /* Adicione uma margem superior para mover o botão para baixo */
+}
+
+
+
+  .card {
+    margin-bottom: 27px; /* Defina o espaçamento desejado entre as imagens */
+  }
+
+
+  .card:first-child {
+    margin-bottom: 20px; /* Mantendo a margem inferior normal para a primeira imagem */
+  }
+
+
+
+    .wrapper img {
+      max-width: 100%; /* Definir largura máxima para as imagens */
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Blocos de imagens -->
+<div class="card-container">
+  <div class="card-pair">
+    <div class="card" onclick="toggleImageSelection(this, 'indicador1.html')" style="margin-top: 50px;">
+      <div class="wrapper">
+        <img src="cover1.jpg" class="cover-image" />
+      </div>
+      <img src="title1.png" class="title" />
+      <img src="foto1.webp" class="character" />
+    </div>
+
+    <div class="card" onclick="toggleImageSelection(this, 'indicador2.html')">
+      <div class="wrapper">
+        <img src="cover2.jpg" class="cover-image" />
+      </div>
+      <img src="title2.png" class="title" />
+      <img src="foto2.webp" class="character" />
+    </div>
+  </div>
+
+  <div class="card-pair">
+    <div class="card" onclick="toggleImageSelection(this, 'indicador3.html')">
+      <div class="wrapper">
+        <img src="cover3.jpg" class="cover-image" />
+      </div>
+      <img src="title3.png" class="title" />
+      <img src="foto3.webp" class="character" />
+    </div>
+
+    <div class="card" onclick="toggleImageSelection(this, 'indicador4.html')">
+      <div class="wrapper">
+        <img src="cover4.jpg" class="cover-image" />
+      </div>
+      <img src="title4.png" class="title" />
+      <img src="foto4.webp" class="character" />
+    </div>
+  </div>
+</div>
+
+
+<!-- Switch -->
+<div class="switch-container">
+  <label class="switch">
+    <input class="switch__input" type="checkbox" role="switch" onclick="redirectOnSwitch()">
+    <span class="switch__base-outer"></span>
+    <span class="switch__base-inner"></span>
+    <svg class="switch__base-neon" viewBox="0 0 40 24" width="30px" height="20px">
+      <defs>
+        <filter id="switch-glow">
+          <feGaussianBlur result="coloredBlur" stddeviation="1"></feGaussianBlur>
+          <feMerge>
+            <feMergeNode in="coloredBlur"></feMergeNode>
+            <feMergeNode in="SourceGraphic"></feMergeNode>
+          </feMerge>
+        </filter>
+        <linearGradient id="switch-gradient1" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="hsl(var(--on-hue1),90%,70%)" />
+          <stop offset="100%" stop-color="hsl(var(--on-hue2),90%,70%)" />
+        </linearGradient>
+        <linearGradient id="switch-gradient2" x1="0.7" y1="0" x2="0.3" y2="1">
+          <stop offset="25%" stop-color="hsla(var(--on-hue1),90%,70%,0)" />
+          <stop offset="50%" stop-color="hsla(var(--on-hue1),90%,70%,0.3)" />
+          <stop offset="100%" stop-color="hsla(var(--on-hue2),90%,70%,0.3)" />
+        </linearGradient>
+      </defs>
+      <path fill="none" filter="url(#switch-glow)" stroke="url(#switch-gradient1)" stroke-width="1" stroke-dasharray="0 104.26 0" stroke-dashoffset="0.01" stroke-linecap="round" d="m.5,12C.5,5.649,5.649.5,12,.5h16c6.351,0,11.5,5.149,11.5,11.5s-5.149,11.5-11.5,11.5H12C5.649,23.5,.5,18.351,.5,12Z"/>
+    </svg>
+    <span class="switch__knob-shadow"></span>
+    <span class="switch__knob-container">
+      <span class="switch__knob">
+        <svg class="switch__knob-neon" viewBox="0 0 48 48" width="40px" height="40px">
+          <circle fill="none" stroke="url(#switch-gradient2)" stroke-dasharray="0 90.32 0 54.19" stroke-linecap="round" stroke-width="1" r="23" cx="24" cy="24" transform="rotate(-112.5,24,24)" />
+        </svg> 
+      </span>
+    </span>
+    <span class="switch__led"></span>
+    <span class="switch__text">Power</span>
+  </label>
+</div>
+<!-- Fim do switch -->
+
+<script>
+  var selectedCard = null;
+  var selectedImageLink = "";
+  
+  function toggleImageSelection(card, link) {
+    if (selectedCard === card) {
+      // Se a imagem já estiver selecionada, desmarque-a
+      selectedCard.classList.remove("selected");
+      selectedCard = null;
+      selectedImageLink = "";
+    } else {
+      // Se não, selecione-a
+      if (selectedCard !== null) {
+        selectedCard.classList.remove("selected");
+      }
+      selectedCard = card;
+      selectedCard.classList.add("selected");
+      selectedImageLink = link;
+    }
+  }
+
+  function redirectOnSwitch() {
+    if(selectedImageLink !== "") {
+      setTimeout(function() {
+        window.location.href = selectedImageLink;
+      }, 500); // Tempo de atraso em milissegundos (500ms neste exemplo)
+    } else {
+      alert("Por favor, selecione um dos indicadores antes de ligar o botão.");
+    }
+  }
+
+  // Desligar o switch quando a página é carregada
+  window.onload = function() {
+    document.querySelector('.switch__input').checked = false;
+  };
+
+  // Desligar o switch quando a página é fechada ou recarregada
+  window.addEventListener('unload', function() {
+    document.querySelector('.switch__input').checked = false;
+  });
+</script>
+
+</body>
+</html>
